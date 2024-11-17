@@ -100,16 +100,9 @@
         </table>
         <button id="screenshotButton">📸 截圖保存</button>
     </div>
-    <audio id="backgroundMusic" src="音.mp3" type="audio/mp3" preload="auto"></audio>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 自動播放音樂
-            const music = document.getElementById('backgroundMusic');
-            setTimeout(() => {
-                music.play().catch(err => console.warn('自動播放可能被瀏覽器阻止:', err));
-            }, 1000); // 1秒後播放
-
             // 截圖功能
             const screenshotButton = document.getElementById('screenshotButton');
             const container = document.getElementById('wishContainer');
