@@ -100,15 +100,32 @@
         </table>
         <button id="screenshotButton">📸 截圖保存</button>
     </div>
+    <audio id="backgroundMusic" src="音.mp3" type="audio/mp3" preload="auto"></audio>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
-        document.getElementById('screenshotButton').addEventListener('click', () => {
-            const container = document.getElementById('wishContainer'); // 取得整個卡片範圍
-            html2canvas(container).then(canvas => {
-                const link = document.createElement('a');
-                link.download = "birthday_card.png"; // 下載文件名
-                link.href = canvas.toDataURL("image/png"); // 轉換為 PNG 格式圖片
-                link.click(); // 開始下載
+        document.addEventListener('DOMContentLoaded', () => {
+            // 自動播放音樂
+            const music = document.getElementById('backgroundMusic');
+            setTimeout(() => {
+                music.play().catch(err => console.warn('自動播放可能被瀏覽器阻止:', err));
+            }, 1000); // 1秒後播放
+
+            // 截圖功能
+            const screenshotButton = document.getElementById('screenshotButton');
+            const container = document.getElementById('wishContainer');
+
+            screenshotButton.addEventListener('click', () => {
+                // 隱藏按鈕
+                screenshotButton.style.display = 'none';
+                html2canvas(container).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = "birthday_card.png"; // 下載文件名
+                    link.href = canvas.toDataURL("image/png"); // 轉換為 PNG 格式圖片
+                    link.click(); // 開始下載
+
+                    // 截圖完成後顯示按鈕
+                    screenshotButton.style.display = 'block';
+                });
             });
         });
     </script>
