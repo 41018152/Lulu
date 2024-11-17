@@ -37,7 +37,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
-            background: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+            background: #ffffff; /* 白色背景 */
             border-radius: 10px;
             overflow: hidden;
         }
@@ -93,7 +93,7 @@
             } else {
                 wishes.forEach(wish => {
                     const row = document.createElement('tr');
-                    row.innerHTML = `
+                    row.innerHTML = ` 
                         <td>${wish.message}</td>
                         <td>${wish.author}</td>
                     `;
