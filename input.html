@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write a Birthday Wish</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+        }
+        .title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ff6f91;
+        }
+        input, textarea {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #ff6f91;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #ff3f71;
+        }
+        .output-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .output-box p {
+            margin: 0;
+        }
+        .close-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            background: #0056b3;
+        }
+        /* 提示框的樣式 */
+        .alert-box {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">請輸入要給璐璐壽星的祝福</div>
+        <textarea id="messageInput" placeholder="想對璐璐說的話..."></textarea>
+        <input id="authorInput" type="text" placeholder="留言人...">
+        <button onclick="saveWish()">提交</button>
+
+        <!-- 輸出框顯示提交後的內容 -->
+        <div id="outputBox" class="output-box">
+            <p id="outputMessage"></p>
+            <p id="outputAuthor"></p>
+            <button class="close-btn" onclick="closePage()">關閉</button>
+        </div>
+
+        <!-- 提示框 -->
+        <div id="alertBox" class="alert-box">祝福已提交！</div>
+    </div>
+
+    <script>
+        function saveWish() {
+            const message = document.getElementById('messageInput').value;
+            const author = document.getElementById('authorInput').value;
+
+            if (message.trim() && author.trim()) {
+                const wishes = JSON.parse(localStorage.getItem('wishes')) || [];
+                wishes.push({ message, author });
+                localStorage.setItem('wishes', JSON.stringify(wishes));
+
+                // 顯示提示框
+                document.getElementById('alertBox').style.display = 'block';
+
+                // 在一秒鐘後隱藏提示框並顯示提交的內容
+                setTimeout(function() {
+                    document.getElementById('alertBox').style.display = 'none';
+                    document.getElementById('outputMessage').textContent = "祝福內容: " + message;
+                    document.getElementById('outputAuthor').textContent = "留言人: " + author;
+                    document.getElementById('outputBox').style.display = 'block';
+                }, 1000); // 提示框顯示1秒後消失
+            } else {
+                alert('請填寫完整信息！');
+            }
+        }
+
+        function closePage() {
+            // 跳轉到指定的小恐龍遊戲頁面
+            window.location.href = "https://www.hhtjim.com/wp-content/uploads/2017/02/T-RexGame.html";
+        }
+    </script>
+</body>
+</html>
+

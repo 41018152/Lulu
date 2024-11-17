@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Wishes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        table {
+            width: 90%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+        button {
+            margin: 5px;
+            padding: 8px 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>管理祝福</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>我們想對你說的話</th>
+                <th>留言人</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="wishTableBody"></tbody>
+    </table>
+    <button onclick="addWish()">新增祝福</button>
+    <script>
+        function loadWishes() {
+            const wishes = JSON.parse(localStorage.getItem('wishes')) || [];
+            const tableBody = document.getElementById('wishTableBody');
+            tableBody.innerHTML = '';
+            wishes.forEach((wish, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td contenteditable="true">${wish.message}</td>
+                    <td contenteditable="true">${wish.author}</td>
+                    <td>
+                        <button onclick="deleteWish(${index})">刪除</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function deleteWish(index) {
+            const wishes = JSON.parse(localStorage.getItem('wishes')) || [];
+            wishes.splice(index, 1);
+            localStorage.setItem('wishes', JSON.stringify(wishes));
+            loadWishes();
+        }
+
+        function addWish() {
+            const message = prompt('請輸入祝福內容：');
+            const author = prompt('請輸入留言人：');
+            if (message && author) {
+                const wishes = JSON.parse(localStorage.getItem('wishes')) || [];
+                wishes.push({ message, author });
+                localStorage.setItem('wishes', JSON.stringify(wishes));
+                loadWishes();
+            } else {
+                alert('內容或留言人不可為空！');
+            }
+        }
+
+        // 初次加載
+        loadWishes();
+    </script>
+</body>
+</html>
