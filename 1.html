@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1</title>
+    <script>
+        function showAlert() {
+            alert("請點擊按鈕進行下一步");
+        }
+
+        function redirectToNextPage() {
+            window.location.href = "https://41018152.github.io/Lulu/output.html";
+            var audio = new Audio('音.mp3');  // 使用音.mp3或音.ogg
+            audio.play();
+        }
+    </script>
+</head>
+<body onload="showAlert()">
+    <button onclick="redirectToNextPage()">請按我</button>
+</body>
+</html>
