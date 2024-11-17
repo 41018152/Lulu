@@ -16,19 +16,15 @@
         }
         .container {
             text-align: center;
-            padding: 20px;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .big-table {
-            text-align: center;
-            background-image: url('2.png'); /* 大表格背景圖片 */
+            background-image: url('2.PNG'); /* 卡片背景圖片 */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             padding: 20px;
             border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
         }
         .title {
             font-size: 2.5rem; /* 增大文字大小 */
@@ -41,7 +37,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
-            background: #ffffff; /* 白色背景 */
+            background: rgba(255, 255, 255, 0.8); /* 半透明背景 */
             border-radius: 10px;
             overflow: hidden;
         }
@@ -71,47 +67,27 @@
 </head>
 <body>
     <div class="container" id="wishContainer">
-        <div class="big-table">
-            <div class="title">璐璐祝你生日快樂!!!</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>我們想對你說的話</th>
-                        <th>留言人</th>
-                    </tr>
-                </thead>
-                <tbody id="wishTableBody">
-                    <!-- 祝福內容將動態插入 -->
-                </tbody>
-            </table>
-            <button id="screenshotButton">📸 截圖保存</button>
-        </div>
+        <div class="title">璐璐祝你生日快樂!!!</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>我們想對你說的話</th>
+                    <th>留言人</th>
+                </tr>
+            </thead>
+            <tbody id="wishTableBody">
+                <tr>
+                    <td>祝福內容將顯示在這裡</td>
+                    <td>留言人</td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="screenshotButton">📸 截圖保存</button>
     </div>
-
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // 從 localStorage 獲取祝福資料
-            const wishes = JSON.parse(localStorage.getItem('wishes')) || [];
-            const tableBody = document.getElementById('wishTableBody');
-
-            if (wishes.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="2">暫無祝福</td></tr>';
-            } else {
-                wishes.forEach(wish => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = ` 
-                        <td>${wish.message}</td>
-                        <td>${wish.author}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            }
-        });
-
-        // 截圖並保存
         document.getElementById('screenshotButton').addEventListener('click', () => {
-            const container = document.getElementById('wishContainer'); // 取得整個大表格範圍
+            const container = document.getElementById('wishContainer'); // 取得整個卡片範圍
             html2canvas(container).then(canvas => {
                 const link = document.createElement('a');
                 link.download = "birthday_card.png"; // 下載文件名
